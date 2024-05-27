@@ -149,6 +149,10 @@ class VariableEditor extends React.PureComponent {
         );
     }
 
+    /**
+     * 渲染编辑按钮
+     * @returns 
+     */
     getEditIcon = () => {
         const { variable, theme } = this.props;
 
@@ -171,9 +175,13 @@ class VariableEditor extends React.PureComponent {
         );
     };
 
+    /**
+     * 处理编辑
+     * @param {*} variable 
+     */
     prepopInput = variable => {
         if (this.props.onEdit !== false) {
-            const stringifiedValue = stringifyVariable(variable.value);
+            const stringifiedValue = stringifyVariable(variable.value); // 将值处理成字符串
             const detected = parseInput(stringifiedValue);
             this.setState({
                 editMode: true,
@@ -186,6 +194,10 @@ class VariableEditor extends React.PureComponent {
         }
     };
 
+    /**
+     * 渲染删除按钮
+     * @returns 
+     */
     getRemoveIcon = () => {
         const { variable, namespace, theme, rjvId } = this.props;
 
@@ -201,7 +213,7 @@ class VariableEditor extends React.PureComponent {
                     class="click-to-remove-icon"
                     {...Theme(theme, 'removeVarIcon')}
                     onClick={() => {
-                        dispatcher.dispatch({
+                        dispatcher.dispatch({ // 触发删除事件
                             name: 'VARIABLE_REMOVED',
                             rjvId: rjvId,
                             data: {
@@ -217,12 +229,18 @@ class VariableEditor extends React.PureComponent {
         );
     };
 
+    /**
+     * 渲染不同类型的值
+     * @param {*} variable 
+     * @param {*} editMode 
+     * @returns 
+     */
     getValue = (variable, editMode) => {
         const type = editMode ? false : variable.type;
         const { props } = this;
         switch (type) {
             case false:
-                return this.getEditInput();
+                return this.getEditInput(); // 编辑状态
             case 'string':
                 return <JsonString value={variable.value} {...props} />;
             case 'integer':
@@ -253,6 +271,7 @@ class VariableEditor extends React.PureComponent {
         }
     };
 
+    // 渲染编辑框
     getEditInput = () => {
         const { keyModifier, selectOnFocus, theme } = this.props;
         const { editValue } = this.state;
@@ -330,6 +349,10 @@ class VariableEditor extends React.PureComponent {
         );
     };
 
+    /**
+     * 确认编辑
+     * @param {*} submit_detected 
+     */
     submitEdit = submit_detected => {
         const { variable, namespace, rjvId } = this.props;
         const { editValue, parsedInput } = this.state;
@@ -341,7 +364,7 @@ class VariableEditor extends React.PureComponent {
             editMode: false
         });
         dispatcher.dispatch({
-            name: 'VARIABLE_UPDATED',
+            name: 'VARIABLE_UPDATED', // 触发更新事件
             rjvId: rjvId,
             data: {
                 name: variable.name,
@@ -353,6 +376,10 @@ class VariableEditor extends React.PureComponent {
         });
     };
 
+    /**
+     * 展示 detected
+     * @returns 
+     */
     showDetected = () => {
         const { theme, variable, namespace, rjvId } = this.props;
         const { type, value } = this.state.parsedInput;

@@ -97,6 +97,13 @@ class RjvObject extends React.PureComponent {
         );
     };
 
+    /**
+     * 获取对象内容
+     * @param {*} depth 
+     * @param {*} src 
+     * @param {*} props 
+     * @returns 
+     */
     getObjectContent = (depth, src, props) => {
         return (
             <div class="pushed-content object-container">
@@ -137,6 +144,12 @@ class RjvObject extends React.PureComponent {
         );
     };
 
+    /**
+     * 获取数据的开始行
+     * @param {*} object_type 
+     * @param {*} expanded 
+     * @returns 
+     */
     getBraceStart(object_type, expanded) {
         const { src, theme, iconStyle, parent_type } = this.props;
 
@@ -237,6 +250,12 @@ class RjvObject extends React.PureComponent {
         );
     }
 
+    /**
+     * 渲染对象内容
+     * @param {*} variables 
+     * @param {*} props 
+     * @returns 
+     */
     renderObjectContents = (variables, props) => {
         const {
             depth,
@@ -261,7 +280,7 @@ class RjvObject extends React.PureComponent {
             }
             if (!variables.hasOwnProperty(name)) {
                 return;
-            } else if (variable.type === 'object') {
+            } else if (variable.type === 'object') { // 嵌套 JsonObject
                 elements.push(
                     <JsonObject
                         key={variable.name}

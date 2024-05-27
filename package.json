@@ -192,6 +192,7 @@
     "@babel/plugin-syntax-jsx": "~7.12.1",
     "@babel/register": "7.12.10",
     "@types/react": "^18.2.20",
+    "babel-loader": "^8.0.0",
     "babel-plugin-react-html-attrs": "~2.1.0",
     "chai": "~4.2.0",
     "conventional-github-releaser": "latest",

@@ -39,7 +39,7 @@ class ObjectAttributes extends EventEmitter {
                     ...data,
                     type: 'variable-edited'
                 });
-                this.emit('variable-update-' + rjvId);
+                this.emit('variable-update-' + rjvId); // 触发 updateSrc
                 break;
             case 'VARIABLE_REMOVED':
                 action.data.updated_src = this.updateSrc(rjvId, data);
@@ -64,6 +64,12 @@ class ObjectAttributes extends EventEmitter {
         }
     };
 
+    /**
+     * 获取 updated_src
+     * @param {*} rjvId 
+     * @param {*} request 
+     * @returns 
+     */
     updateSrc = (rjvId, request) => {
         let {
             name,
@@ -123,5 +129,6 @@ class ObjectAttributes extends EventEmitter {
 }
 
 const attributeStore = new ObjectAttributes();
+// 注册各种 Action 的回调函数
 dispatcher.register(attributeStore.handleAction.bind(attributeStore));
 export default attributeStore;
